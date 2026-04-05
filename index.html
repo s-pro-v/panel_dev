@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>TERMINAL_INTERFACE_V5</title>
+    <script>
+        (function () {
+            try {
+                var k = 'TERMINAL_UI_THEME';
+                var s = localStorage.getItem(k);
+                if (s === 'light' || s === 'dark') {
+                    document.documentElement.setAttribute('data-theme', s);
+                    return;
+                }
+                document.documentElement.setAttribute(
+                    'data-theme',
+                    window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+                );
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="viewport-panel-bg" aria-hidden="true"></div>
+    <div class="scanlines"></div>
+    <div class="grid-bg"></div>
+
+    <header>
+        <div>
+            <div class="sys-label">/SYSTEM_CONTROL_UNIT_V5/</div>
+            <h1>The_Craft_Of_UI</h1>
+        </div>
+        <div class="header-trailing">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false"
+                title="Motyw jasny / ciemny">
+                <i data-lucide="sun" class="theme-toggle__icon theme-toggle__icon--sun" width="20" height="20"
+                    aria-hidden="true"></i>
+                <i data-lucide="moon" class="theme-toggle__icon theme-toggle__icon--moon" width="20" height="20"
+                    aria-hidden="true"></i>
+            </button>
+            <div id="timestamp">00:00:00</div>
+        </div>
+    </header>
+
+    <main>
+        <p class="description">
+            Opanuj sztukę i naukę o rozwoju interfejsów. To nie tylko przesuwanie pikseli — to zarządzanie narzędziami,
+            zrozumienie niuansów i kształtowanie doświadczeń z intencją inżyniera systemowego.
+        </p>
+
+        <div id="grid-root" class="grid-container grid-intro-pending">
+            <!-- Stabilna inicjalizacja DOM -->
+        </div>
+
+        <footer>
+            <div class="status-link">
+                <div class="dot"></div>
+                Protokół_Aktywny
+            </div>
+            <div>ID: 0x99_STABLE // BUFOR: 100%</div>
+        </footer>
+    </main>
+
+    <div id="subpage" class="subpage-view" aria-hidden="true" role="dialog" aria-modal="true"
+        aria-labelledby="subpage-title-el">
+        <div class="scanlines"></div>
+        <div class="grid-bg"></div>
+        <div class="subpage-inner">
+            <button type="button" class="subpage-back" id="subpage-back">
+                <i data-lucide="arrow-left" width="16" height="16"></i>
+                Powrót_do_siatki
+            </button>
+            <span class="subpage-meta" id="subpage-meta"></span>
+            <h2 class="subpage-title" id="subpage-title-el"></h2>
+            <div class="subpage-body" id="subpage-body"></div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
