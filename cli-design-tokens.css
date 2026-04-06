@@ -1,0 +1,199 @@
+/* DESIGN SYSTEM — paleta i motywy (spójne z index / root); mostek do panel-ui.css */
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+
+:root {
+    color-scheme: dark;
+
+    /* --- COLORS: PALETTE (dark) --- */
+    --highlight-color: #f36c00;
+    --success-color: #28a745;
+    --danger-color: #ff0000;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --border-color-ds: #2a2a2a;
+    --highlight-rgb: 243, 108, 0;
+    --text-color-rgb: 224, 224, 224;
+    --text-muted-rgb: 133, 133, 133;
+    --bg-rgb: 18, 18, 18;
+    --border-color-rgb: 42, 42, 42;
+
+    /* --- SETTINGS --- */
+    --font-family: "JetBrains Mono", "Share Tech Mono", monaco, courier, monospace;
+    --site-fontStack-monospace: var(--font-family);
+    --transition-speed: 0.2s;
+    --btn-height: 2rem;
+
+    /* --- DARK THEME SURFACES --- */
+    --bg: #222222;
+    --bg-color: var(--bg);
+    --bg-primary: #1e1e1e;
+    --bg-secondary: #252526;
+    --bg-tertiary: #2e2e2e;
+    --text-color: #e0e0e0;
+    --text-primary: #e0e0e0;
+    --text-muted: #858585;
+    --text-inverse: #000000;
+    --border-color-hover: #444444;
+    --hover-bg: #3c3c3c;
+
+    --grid-color: rgba(255, 255, 255, 0.03);
+    /* Siatka HUD (.grid-bg) — ten sam krok co w panel-ui (40px) */
+    --grid-overlay-size: 40px;
+    --bg-grid-size: 20px 20px;
+    --bg-grid:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+
+    --bg-body:
+        radial-gradient(circle at 20% 30%, rgba(255, 115, 0, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 115, 0, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 40%);
+    --bg-body-size: 100% 100%;
+    --stripe-accent: rgba(255, 255, 255, 0.04);
+    --bg-stripe-size: 12px 12px;
+    --bg-stripe-pattern: linear-gradient(135deg,
+            transparent 0%,
+            transparent 25%,
+            var(--stripe-accent) 25%,
+            var(--stripe-accent) 50%,
+            transparent 50%,
+            transparent 75%,
+            var(--stripe-accent) 75%,
+            var(--stripe-accent) 100%);
+    --surface-overlay: rgba(255, 255, 255, 0.035);
+    --surface-overlay-hover: rgba(255, 255, 255, 0.04);
+
+    --shadow-drop:
+        rgba(32, 32, 32, 0.4) 0px 0px 0px 2px,
+        rgba(0, 0, 0, 0.65) 0px 4px 6px -1px,
+        rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    --shadow-inset:
+        inset 0px 0px 0px 2px rgba(32, 32, 32, 0.4),
+        inset 0px 4px 6px -1px rgba(0, 0, 0, 0.65),
+        inset 0px 1px 0px rgba(255, 255, 255, 0.08);
+    --shadow-hover:
+        rgba(32, 32, 32, 0.2) 0px 0px 0px 1px,
+        rgba(0, 0, 0, 0.325) 0px 2px 3px -0.5px,
+        rgba(255, 255, 255, 0.04) 0px 0.5px 0px inset;
+
+    --glass-noise-background:
+        radial-gradient(circle at 160% -100%, #8f7c6a8a 0%, #0001 55%),
+        conic-gradient(#ffffff14 0.25turn,
+            #ffffff20 0.25turn 0.5turn,
+            #ffffff14 0.5turn 0.75turn,
+            #ffffff20 0.75turn) top left / 4px 4px repeat,
+        #010405;
+
+    --boot-github-done: #3fb950;
+    --ui-hover-sheen-bg: rgba(255, 255, 255, 0.1);
+    --scanlines-opacity: 0.4;
+
+    /* --- MOSTEK → panel-ui (komponenty istniejące) --- */
+    --highlight: var(--highlight-color);
+    --panel: var(--bg-primary);
+    --border: var(--border-color-ds);
+    --border-color: #444444;
+    --text: var(--text-primary);
+    --success: var(--success-color);
+    --easing: cubic-bezier(0.16, 1, 0.3, 1);
+    --speed: 0.6s;
+    --viewport-photo: url("https://picsum.photos/1920/1080?random=199");
+    --scanline-stripe: rgba(0, 0, 0, 0.06);
+    --grid-bg-opacity: 0.45;
+    --viewport-photo-opacity: 0.09;
+    --icon-box-bg: var(--bg-secondary);
+    --panel-hover-ring: rgba(var(--highlight-rgb), 0.4);
+    --subpage-scrim: rgba(18, 18, 18, 0.93);
+    --btn-on-highlight: #000000;
+    --panel-bg: rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="light"] {
+    color-scheme: light;
+
+    --highlight-color: #f36c00;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --border-color-ds: #dee2e6;
+    --text-color-rgb: 33, 37, 41;
+    --text-muted-rgb: 108, 117, 125;
+    --bg-rgb: 248, 249, 250;
+    --border-color-rgb: 222, 226, 230;
+
+    --bg: #f8f9fa;
+    --bg-color: var(--bg);
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #ffffff;
+    --text-color: #212529;
+    --text-primary: #212529;
+    --text-muted: #6c757d;
+    --text-inverse: #ffffff;
+    --border-color-hover: #e0e0e0;
+    --hover-bg: #eeeeee;
+
+    --grid-color: rgba(0, 0, 0, 0.03);
+    --stripe-accent: rgba(0, 0, 0, 0.04);
+    --surface-overlay: rgba(0, 0, 0, 0.05);
+    --surface-overlay-hover: rgba(0, 0, 0, 0.04);
+
+    --bg-body:
+        radial-gradient(circle at 20% 30%, rgba(255, 115, 0, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 115, 0, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 40%);
+
+    --shadow-drop: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px, rgba(78, 78, 78, 0.185) 0px 2px 6px 2px;
+    --shadow-inset: inset rgba(78, 78, 78, 0.185) 0px 2px 6px 2px, inset rgba(0, 0, 0, 0.3) 0px 1px 2px 0px;
+    --shadow-hover:
+        rgba(32, 32, 32, 0.2) 0px 0px 0px 1px,
+        rgba(0, 0, 0, 0.325) 0px 2px 3px -0.5px,
+        rgba(255, 255, 255, 0.04) 0px 0.5px 0px inset;
+
+    --glass-noise-background:
+        radial-gradient(circle at 60% -100%, #fffbe3cc 0%, #e3f2fd4d 75%),
+        conic-gradient(#ffffff66 0.25turn,
+            #fffde680 0.25turn 0.5turn,
+            #ffffff66 0.5turn 0.75turn,
+            #fffde680 0.75turn) top left / 4px 4px repeat,
+        #f6f8fa;
+
+    --boot-github-done: #1a7f37;
+    --ui-hover-sheen-bg: rgba(0, 0, 0, 0.07);
+    --scanlines-opacity: 0.35;
+
+    --highlight: var(--highlight-color);
+    --panel: var(--bg-primary);
+    --border: var(--border-color-ds);
+    --border-color: #8b8b9a;
+    --text: var(--text-primary);
+    --scanline-stripe: rgba(0, 0, 0, 0.045);
+    --grid-bg-opacity: 0.28;
+    --viewport-photo-opacity: 0.075;
+    --icon-box-bg: #e6e6ea;
+    --panel-hover-ring: rgba(var(--highlight-rgb), 0.42);
+    --subpage-scrim: rgba(248, 249, 250, 0.94);
+    --btn-on-highlight: #121212;
+    --panel-bg: rgba(255, 255, 255, 0.5);
+}
+
+/* Płynne przełączanie motywu — wyłączenie animacji na 1 klatkę */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+}
+
+/* Siatka główna — rozmiar komórki z DS (spójnie z tokenem) */
+.grid-bg {
+    background-size: var(--grid-overlay-size) var(--grid-overlay-size);
+}
+
+.scanlines {
+    opacity: var(--scanlines-opacity);
+}

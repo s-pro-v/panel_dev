@@ -1,0 +1,369 @@
+/* CLI Toolkit — warstwa na panel-ui.css + cli-design-tokens.css */
+
+/* Podstrona: przewijanie tylko w .subpage-body (nagłówek i tytuł zostają na górze) */
+.subpage-view {
+    overflow: hidden;
+    align-items: stretch;
+}
+
+.subpage-inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.subpage-back,
+.subpage-meta,
+.subpage-title {
+    flex-shrink: 0;
+}
+
+.subpage-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) var(--bg);
+}
+
+.subpage-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.subpage-body::-webkit-scrollbar-track {
+    background: var(--bg);
+    border-left: 1px solid var(--border);
+}
+
+.subpage-body::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border: 1px solid var(--bg);
+}
+
+.subpage-body::-webkit-scrollbar-thumb:hover {
+    background: var(--highlight);
+}
+
+/* Wyszukiwarka pod opisem */
+.cli-search-row {
+    display: flex;
+    gap: 0;
+    width: 100%;
+    max-width: 45rem;
+    margin-bottom: 1.75rem;
+    align-items: stretch;
+    border: 1px solid var(--border);
+    background: var(--panel);
+}
+
+.cli-search-row .cli-search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.85rem;
+    background: var(--icon-box-bg);
+    border-right: 1px solid var(--border);
+    color: var(--highlight);
+    flex-shrink: 0;
+}
+
+.cli-search-row input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: 1px solid var(--bg);
+    background: transparent;
+    color: var(--text);
+    padding: 0.65rem 1rem;
+    font-family: inherit;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.cli-search-row input:focus {
+    border-bottom: 1px solid var(--highlight);
+    outline: none;
+    background: var(--panel-bg);
+}
+
+
+.cli-search-row input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.65;
+}
+
+/* Ikony Font Awesome w panelach */
+.panel .icon-box .cmd-panel-icon {
+    font-size: 1.15rem;
+    line-height: 1;
+}
+
+/* Lista poleceń w podstronie */
+.cli-cmd-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cli-cmd-row {
+    border-bottom: 1px solid var(--border);
+    padding: 0.7rem 0;
+    cursor: pointer;
+    transition: background 0.12s ease;
+}
+
+.cli-cmd-row:hover {
+    background: rgba(120, 120, 120, 0.2);
+}
+
+.cli-cmd-row:active {
+    background: var(--panel-bg);
+}
+
+.cli-cmd-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: var(--text);
+    word-break: break-word;
+    background-color: var(--panel-bg);
+}
+
+.cli-cmd-line .cmd-icon-slot {
+    flex-shrink: 0;
+    width: 1.5rem;
+    text-align: center;
+    padding-top: 0.1rem;
+}
+
+.cli-cmd-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    line-height: 1.55;
+    padding-left: 2.15rem;
+}
+
+.cli-empty-panels {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border: 1px dashed var(--border);
+    width: 100%;
+}
+
+/* Toast */
+.cli-toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 400;
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    color: var(--highlight);
+    padding: 0.85rem 1.35rem;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: none;
+    max-width: min(90vw, 38rem);
+    word-break: break-word;
+    box-shadow: var(--shadow-drop);
+}
+
+/* Ikony typu polecenia (jak wcześniej) */
+.cmd-type-icon {
+    font-size: 1em;
+    opacity: 0.95;
+}
+
+.cmd-type-icon--critical {
+    color: var(--danger-color);
+    filter: drop-shadow(0 0 4px currentColor);
+}
+
+.cmd-type-icon--ps {
+    color: #a78bfa;
+}
+
+.cmd-type-icon--net {
+    color: #5eead4;
+}
+
+.cmd-type-icon--repair {
+    color: #f87171;
+}
+
+.cmd-type-icon--info {
+    color: #93c5fd;
+}
+
+.cmd-type-icon--boot {
+    color: #fcd34d;
+}
+
+.cmd-type-icon--gui {
+    color: #c4b5fd;
+}
+
+.cmd-type-icon--winget {
+    color: #67e8f9;
+}
+
+.cmd-type-icon--wsl {
+    color: #86efac;
+}
+
+.cmd-type-icon--power {
+    color: #fdba74;
+}
+
+.cmd-type-icon--explorer {
+    color: #fde047;
+}
+
+.cmd-type-icon--lookup {
+    color: #c4b5fd;
+}
+
+.cmd-type-icon--rdp {
+    color: #7dd3fc;
+}
+
+.cmd-type-icon--link {
+    color: #d8b4fe;
+}
+
+.cmd-type-icon--settings-gear {
+    color: #94a3b8;
+}
+
+.cmd-type-icon--default {
+    color: #a1a1aa;
+}
+
+[data-theme="light"] .cmd-type-icon--ps {
+    color: #5b21b6;
+}
+
+[data-theme="light"] .cmd-type-icon--net {
+    color: #0f766e;
+}
+
+[data-theme="light"] .cmd-type-icon--repair {
+    color: #b91c1c;
+}
+
+[data-theme="light"] .cmd-type-icon--info {
+    color: #1d4ed8;
+}
+
+[data-theme="light"] .cmd-type-icon--boot {
+    color: #b45309;
+}
+
+[data-theme="light"] .cmd-type-icon--gui {
+    color: #6d28d9;
+}
+
+[data-theme="light"] .cmd-type-icon--winget {
+    color: #0e7490;
+}
+
+[data-theme="light"] .cmd-type-icon--wsl {
+    color: #15803d;
+}
+
+[data-theme="light"] .cmd-type-icon--power {
+    color: #c2410c;
+}
+
+[data-theme="light"] .cmd-type-icon--explorer {
+    color: #a16207;
+}
+
+[data-theme="light"] .cmd-type-icon--lookup {
+    color: #7c3aed;
+}
+
+[data-theme="light"] .cmd-type-icon--rdp {
+    color: #0369a1;
+}
+
+[data-theme="light"] .cmd-type-icon--link {
+    color: #9333ea;
+}
+
+[data-theme="light"] .cmd-type-icon--settings-gear {
+    color: #475569;
+}
+
+[data-theme="light"] .cmd-type-icon--default {
+    color: #52525b;
+}
+
+/* Tytuł modułu na panelu — zawijanie i skala czcionki do szerokości .expanded-info */
+.panel .expanded-info {
+    container-type: inline-size;
+    min-width: 0;
+}
+
+.panel .panel-title {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    line-height: 1.1;
+    max-width: 100%;
+    hyphens: auto;
+    font-size: clamp(0.65rem, 0.5rem + 6cqi, 1.75rem);
+}
+
+@media (max-width: 767px) {
+    .panel .panel-title {
+        font-size: clamp(1rem, 4.5vw, 1.55rem);
+        line-height: 1.14;
+    }
+}
+
+/* Druga linia tytułu: treść z [...] */
+.panel .panel-title__main,
+.panel .panel-title__sub {
+    display: block;
+}
+
+.panel .panel-title__sub {
+    font-size: 0.52em;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-top: 0.35em;
+    line-height: 1.2;
+    text-transform: none;
+    letter-spacing: 0.06em;
+}
+
+.subpage-title__main,
+.subpage-title__sub {
+    display: block;
+}
+
+.subpage-title__sub {
+    font-size: clamp(0.8rem, 2.2vw, 1.05rem);
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    text-transform: none;
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+    padding-bottom: 0;
+    border-bottom: none;
+}
