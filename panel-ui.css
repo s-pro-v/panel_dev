@@ -303,13 +303,26 @@ main {
     filter: grayscale(1);
     transition:
         opacity var(--speed) var(--easing),
-        transform 3s var(--easing);
+        transform 3s var(--easing),
+        filter 0.45s var(--easing);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .panel:hover img {
+        filter: grayscale(0);
+    }
 }
 
 .panel.active img {
     opacity: 0.4;
-    filter: grayscale(0);
     transform: scale(1.1);
+}
+
+/* Dotyk: bez hover — kolor po rozwinięciu panelu */
+@media (hover: none) {
+    .panel.active img {
+        filter: grayscale(0);
+    }
 }
 
 /* Content Overlay */
