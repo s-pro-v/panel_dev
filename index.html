@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="page-boot">
 
 <head>
     <meta charset="UTF-8">
@@ -25,6 +25,17 @@
             }
         })();
     </script>
+    <style id="boot-guard">
+        html.page-boot:not(.page-ready) header,
+        html.page-boot:not(.page-ready) main {
+            opacity: 0;
+        }
+
+        html.page-boot:not(.page-ready) #grid-root .panel {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
     <link rel="stylesheet" href="panel-ui.css">
     <link rel="stylesheet" href="cli-design-tokens.css">
     <link rel="stylesheet" href="cli-overrides.css">
@@ -57,8 +68,10 @@
     <main>
         <p class="description">
             Indeks poleceń CMD i PowerShell pod Windows: sieć, naprawa systemu, winget, WSL i skróty codzienne.
-            Wybierz moduł na poziomej siatce — <strong>Lista_poleceń</strong> otwiera pełną listę z kopiowaniem do
-            schowka.
+            Wybierz moduł na poziomej siatce — <strong>Lista_poleceń</strong> otwiera pełną listę.
+            <strong>Klik</strong> kopiuje polecenie; <strong>Alt+klik</strong> uruchamia terminal (użytkownik),
+            <strong>Alt+Shift+klik</strong> — jako administrator (UAC; Windows:
+            <code>protocol\install-clirun-protocol.ps1</code>).
             Wyszukiwarka filtruje moduły i wpisy wewnątrz podstrony.
         </p>
 

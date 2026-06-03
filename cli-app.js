@@ -245,21 +245,90 @@
     const searchInput = () => document.getElementById("searchInput");
     const toastEl = () => document.getElementById("toast");
 
-    function copyToClipboard(text) {
+    function showToast(message, durationMs) {
+        const t = toastEl();
+        if (!t) return;
+        t.textContent = message;
+        t.style.display = "block";
+        clearTimeout(showToast._timer);
+        showToast._timer = setTimeout(function () {
+            t.style.display = "none";
+        }, durationMs || 2800);
+    }
+
+    function utf8ToBase64(str) {
+        const bytes = new TextEncoder().encode(str);
+        let bin = "";
+        for (let i = 0; i < bytes.length; i++) {
+            bin += String.fromCharCode(bytes[i]);
+        }
+        return btoa(bin);
+    }
+
+    function isPowerShellCmd(cmd) {
+        const s = (cmd || "").trim();
+        if (!s) return false;
+        if (
+            /^(Get-|Set-|Start-|Stop-|Invoke-|Test-|New-|Remove-|Import-|Export-|Resolve-|Find-|Select-|Where-|ForEach-|Out-|Write-|Clear-|Add-|Connect-|Disconnect-|Enable-|Disable-|Restart-|Compare-|Convert-|Format-|Measure-|Sort-|Group-|Wait-|Enter-|Push-|Pop-|Update-|Install-|Uninstall-|winget\s)/i.test(
+                s
+            )
+        ) {
+            return true;
+        }
+        if (/\$[a-zA-Z_]/.test(s)) return true;
+        if (/^\[CmdletBinding/i.test(s)) return true;
+        if (/\|\s*(Where-Object|ForEach-Object|Select-Object|Sort-Object)/i.test(s)) {
+            return true;
+        }
+        return false;
+    }
+
+    function openInTerminal(cmd, options) {
+        if (!cmd) return;
+        const opts = options || {};
+        const asAdmin = !!opts.admin;
+        const shell = isPowerShellCmd(cmd) ? "ps" : "cmd";
+        let uri;
+        try {
+            uri =
+                "clitoolkit://run/?cmd=" +
+                encodeURIComponent(utf8ToBase64(cmd)) +
+                "&shell=" +
+                shell +
+                (asAdmin ? "&admin=1" : "");
+        } catch (e) {
+            showToast("Nie udało się przygotować URI terminala.");
+            return;
+        }
+        const a = document.createElement("a");
+        a.href = uri;
+        a.rel = "noopener";
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        if (asAdmin) {
+            showToast(
+                "OTWIERAM JAKO ADMIN (UAC)… Alt+klik = użytkownik, Alt+Shift+klik = admin.",
+                3800
+            );
+        } else {
+            showToast(
+                "OTWIERAM TERMINAL (użytkownik)… Alt+Shift+klik = administrator.",
+                3600
+            );
+        }
+    }
+
+    function copyToClipboard(text, silent) {
         const ta = document.createElement("textarea");
         ta.value = text;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand("copy");
         document.body.removeChild(ta);
-        const t = toastEl();
-        if (t) {
-            t.textContent = "COPIED: " + text;
-            t.style.display = "block";
-            clearTimeout(copyToClipboard._timer);
-            copyToClipboard._timer = setTimeout(function () {
-                t.style.display = "none";
-            }, 2200);
+        if (!silent) {
+            showToast("COPIED: " + text);
         }
     }
 
@@ -299,9 +368,19 @@
                 '<div class="cli-cmd-desc">' +
                 escapeHtml(item.desc || "") +
                 "</div>";
-            li.addEventListener("click", function () {
-                copyToClipboard(item.cmd || "");
+            li.addEventListener("click", function (e) {
+                const cmd = item.cmd || "";
+                if (e.altKey) {
+                    e.preventDefault();
+                    openInTerminal(cmd, { admin: e.shiftKey });
+                    return;
+                }
+                copyToClipboard(cmd);
             });
+            li.setAttribute(
+                "title",
+                "Klik: kopiuj | Alt+klik: terminal (użytkownik) | Alt+Shift+klik: terminal (administrator)"
+            );
             ul.appendChild(li);
         });
         body.innerHTML = "";
@@ -316,6 +395,40 @@
 
     const subpageEl = () => document.getElementById("subpage");
     let subpageCloseToken = 0;
+    let gridIntroComplete = false;
+
+    function scheduleGridIntro(root) {
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const quick = gridIntroComplete;
+
+        root.classList.remove("grid-intro-ready", "grid-rebuild");
+        root.classList.add("grid-intro-pending");
+        if (quick) root.classList.add("grid-rebuild");
+
+        const finish = function () {
+            if (!root.querySelector(".panel.active")) {
+                const first = root.querySelector(".panel");
+                if (first) first.classList.add("active");
+            }
+            root.classList.remove("grid-intro-pending");
+            void root.offsetWidth;
+            root.classList.add("grid-intro-ready");
+            gridIntroComplete = true;
+            document.documentElement.classList.remove("page-boot");
+            document.documentElement.classList.add("page-ready");
+            const guard = document.getElementById("boot-guard");
+            if (guard) guard.remove();
+        };
+
+        if (reduceMotion) {
+            finish();
+            return;
+        }
+
+        requestAnimationFrame(function () {
+            requestAnimationFrame(finish);
+        });
+    }
 
     function moduleFromHash() {
         const raw = window.location.hash.replace(/^#/, "");
@@ -404,7 +517,6 @@
         root.classList.add("grid-intro-pending");
 
         const modules = filteredModules(queryStr);
-        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         if (modules.length === 0) {
             const empty = document.createElement("div");
@@ -412,24 +524,16 @@
             empty.textContent =
                 "Brak modułów pasujących do zapytania. Wyczyść wyszukiwarkę (Ctrl+K) lub zmień frazę.";
             root.appendChild(empty);
-            if (!reduceMotion) {
-                root.classList.remove("grid-intro-pending");
-                root.classList.add("grid-intro-ready");
-            } else {
-                root.classList.remove("grid-intro-pending");
-                root.classList.add("grid-intro-ready");
-            }
+            scheduleGridIntro(root);
             updateFooter(queryStr);
             return;
         }
 
-        let panelHoverTimer = null;
-        const PANEL_HOVER_DELAY_MS = 220;
-
         modules.forEach(function (item, index) {
             const panel = document.createElement("div");
-            panel.className = "panel" + (index === 0 ? " active" : "");
+            panel.className = "panel";
             panel.dataset.panelId = item.id;
+            panel.style.setProperty("--panel-stagger", String(index));
 
             const panelImg = getPanelImage(item.id);
             panel.innerHTML =
@@ -502,43 +606,29 @@
                 panel.classList.add("active");
             };
 
-            panel.addEventListener("click", activate);
-            panel.addEventListener("mouseenter", function () {
-                if (!window.matchMedia("(min-width: 768px)").matches) return;
-                clearTimeout(panelHoverTimer);
-                panelHoverTimer = setTimeout(function () {
-                    activate();
-                    panelHoverTimer = null;
-                }, PANEL_HOVER_DELAY_MS);
-            });
-            panel.addEventListener("mouseleave", function () {
-                clearTimeout(panelHoverTimer);
-                panelHoverTimer = null;
+            const openModule = function () {
+                activate();
+                navigateToModule(item);
+            };
+
+            panel.addEventListener("click", function (e) {
+                if (e.target.closest("[data-open-subpage]")) return;
+                activate();
             });
 
             const btn = panel.querySelector("[data-open-subpage]");
-            btn.addEventListener("click", function (e) {
-                e.stopPropagation();
-                activate();
-                navigateToModule(item);
-            });
+            if (btn) {
+                btn.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    openModule();
+                });
+            }
 
             root.appendChild(panel);
         });
 
-        if (!reduceMotion) {
-            requestAnimationFrame(function () {
-                requestAnimationFrame(function () {
-                    root.classList.remove("grid-intro-pending");
-                    root.classList.add("grid-intro-ready");
-                });
-            });
-        } else {
-            root.classList.remove("grid-intro-pending");
-            root.classList.add("grid-intro-ready");
-        }
-
         if (typeof lucide !== "undefined") lucide.createIcons();
+        scheduleGridIntro(root);
         updateFooter(queryStr);
     }
 
@@ -588,3 +678,30 @@
 
     window.addEventListener("load", init);
 })();
+
+
+// Add these to your existing script section
+document.addEventListener("DOMContentLoaded", function () {
+    // Remove draggable attribute from all elements
+    document.querySelectorAll('[draggable="true"]').forEach((el) => {
+        el.removeAttribute("draggable");
+    });
+
+    // Prevent dragstart event
+    document.addEventListener("dragstart", function (e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // Prevent drop event
+    document.addEventListener("drop", function (e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // Prevent dragover event
+    document.addEventListener("dragover", function (e) {
+        e.preventDefault();
+        return false;
+    });
+});

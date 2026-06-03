@@ -276,8 +276,9 @@ main {
     cursor: pointer;
     transition:
         flex var(--speed) var(--easing),
-        border-color 0.3s var(--easing),
+        border-color 0.35s var(--easing),
         background-color 0.4s var(--easing);
+    backface-visibility: hidden;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -299,30 +300,26 @@ main {
     height: 100%;
     object-fit: cover;
     z-index: 0;
-    opacity: 0.1;
+    opacity: 0.12;
     filter: grayscale(1);
+    transform: scale(1) translate3d(0, 0, 0);
+    transform-origin: center center;
     transition:
-        opacity var(--speed) var(--easing),
-        transform 3s var(--easing),
-        filter 0.45s var(--easing);
+        filter 0.38s var(--easing),
+        opacity 0.62s var(--easing) 0.02s,
+        transform 0.72s var(--easing) 0.04s;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .panel:hover img {
+    .panel:hover:not(.active) img {
         filter: grayscale(0);
     }
 }
 
 .panel.active img {
-    opacity: 0.4;
-    transform: scale(1.1);
-}
-
-/* Dotyk: bez hover — kolor po rozwinięciu panelu */
-@media (hover: none) {
-    .panel.active img {
-        filter: grayscale(0);
-    }
+    opacity: 0.36;
+    transform: scale(1.06) translate3d(0, 0, 0);
+    filter: grayscale(0);
 }
 
 /* Content Overlay */
@@ -343,12 +340,13 @@ main {
     align-items: center;
     gap: 1.5rem;
     opacity: 1;
-    transition: opacity 0.2s var(--easing);
+    transition: opacity 0.18s var(--easing);
 }
 
 .panel.active .collapsed-info {
     opacity: 0;
     visibility: hidden;
+    transition: opacity 0.15s var(--easing);
 }
 
 .icon-box {
@@ -396,17 +394,20 @@ main {
     flex-direction: column;
     align-items: stretch;
     opacity: 0;
-    transform: translateY(15px);
+    transform: translate3d(0, 0.5rem, 0);
     transition:
-        opacity 0.4s var(--easing) 0.3s,
-        transform 0.4s var(--easing) 0.3s;
+        opacity 0.36s var(--easing),
+        transform 0.36s var(--easing);
     pointer-events: none;
 }
 
 .panel.active .expanded-info {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
     pointer-events: all;
+    transition:
+        opacity 0.38s var(--easing) 0s,
+        transform 0.38s var(--easing) 0s;
 }
 
 .metadata {
@@ -613,7 +614,7 @@ footer {
 @keyframes pageBootReveal {
     from {
         opacity: 0;
-        transform: translate3d(0, 1.25rem, 0);
+        transform: translate3d(0, 0.75rem, 0);
     }
 
     to {
@@ -622,136 +623,85 @@ footer {
     }
 }
 
-@keyframes pageBootBg {
+@keyframes pageBootRevealQuick {
     from {
         opacity: 0;
-        transform: scale(1.035);
+        transform: translate3d(0, 0.35rem, 0);
     }
 
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: translate3d(0, 0, 0);
     }
 }
 
-@keyframes pageBootGridHud {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: var(--grid-bg-opacity);
-    }
-}
-
-@keyframes pageBootScan {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 0.4;
-    }
-}
-
-body>.viewport-panel-bg {
-    animation: pageBootBg 1.05s var(--easing) both;
-}
-
-body>.grid-bg {
-    animation: pageBootGridHud 0.88s var(--easing) 0.07s both;
-}
-
-body>.scanlines {
-    animation: pageBootScan 0.95s var(--easing) 0.12s both;
-}
-
-header {
-    animation: pageBootReveal 0.8s var(--easing) 0.06s both;
-}
-
-main>.description {
-    animation: pageBootReveal 0.8s var(--easing) 0.12s both;
-}
-
-main>footer {
-    animation: pageBootReveal 0.8s var(--easing) 0.34s both;
+/* Wejście strony — jedna warstwa (bez migania tła HUD × panele) */
+html.page-ready header,
+html.page-ready main {
+    animation: pageBootReveal 0.55s var(--easing) both;
 }
 
 #grid-root.grid-intro-pending .panel {
     opacity: 0;
-    transform: translate3d(0, 1.25rem, 0);
+    visibility: hidden;
 }
 
 #grid-root.grid-intro-ready .panel {
-    animation: pageBootReveal 0.64s var(--easing) both;
+    opacity: 0;
+    visibility: visible;
+    animation: pageBootReveal 0.55s var(--easing) both;
+    animation-delay: calc(0.08s + (var(--panel-stagger, 0) * 0.035s));
 }
 
-#grid-root.grid-intro-ready .panel:nth-child(1) {
-    animation-delay: 0.15s;
+#grid-root.grid-intro-ready.grid-rebuild .panel {
+    animation: pageBootRevealQuick 0.22s var(--easing) both;
+    animation-delay: 0s;
 }
 
-#grid-root.grid-intro-ready .panel:nth-child(2) {
-    animation-delay: 0.2s;
+/* Bez animacji flex/obrazu podczas bootu — mniej migotania layoutu */
+html.page-boot .panel {
+    transition: none !important;
 }
 
-#grid-root.grid-intro-ready .panel:nth-child(3) {
-    animation-delay: 0.25s;
+html.page-boot .panel img {
+    transition: none !important;
 }
 
-#grid-root.grid-intro-ready .panel:nth-child(4) {
-    animation-delay: 0.3s;
+/* Stan końcowy aktywnego panelu już przy bootcie — bez skoku po page-ready */
+html.page-boot .panel.active img {
+    opacity: 0.36;
+    transform: scale(1.06) translate3d(0, 0, 0);
+    filter: grayscale(0);
 }
 
-#grid-root.grid-intro-ready .panel:nth-child(5) {
-    animation-delay: 0.35s;
-}
-
-#grid-root.grid-intro-ready .panel:nth-child(6) {
-    animation-delay: 0.4s;
-}
-
-#grid-root.grid-intro-ready .panel:nth-child(7) {
-    animation-delay: 0.45s;
-}
-
-#grid-root.grid-intro-ready .panel:nth-child(8) {
-    animation-delay: 0.5s;
+html.page-boot,
+html.page-boot body {
+    overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
 
-    body>.viewport-panel-bg,
-    body>.grid-bg,
-    body>.scanlines,
-    header,
-    main>.description,
-    main>footer,
+    html.page-ready header,
+    html.page-ready main,
     #grid-root.grid-intro-ready .panel {
         animation: none !important;
     }
 
-    body>.viewport-panel-bg,
-    body>.grid-bg,
-    body>.scanlines,
-    header,
-    main>.description,
-    main>footer {
-        opacity: 1 !important;
-        transform: none !important;
-    }
-
-    body>.grid-bg {
-        opacity: var(--grid-bg-opacity) !important;
-    }
-
-    body>.scanlines {
-        opacity: 0.4 !important;
-    }
-
+    html.page-boot:not(.page-ready) header,
+    html.page-boot:not(.page-ready) main,
     #grid-root.grid-intro-pending .panel {
         opacity: 1 !important;
+        visibility: visible !important;
         transform: none !important;
+    }
+
+    #grid-root.grid-intro-ready .panel {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .panel img {
+        transition-duration: 0.01ms !important;
     }
 }
 
@@ -778,12 +728,12 @@ main>footer {
 
 .subpage-view.is-open {
     pointer-events: auto;
-    animation: fadeInGrow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: fadeInGrow 0.48s var(--easing) both;
 }
 
 .subpage-view.is-closing {
     pointer-events: none;
-    animation: fadeOutShrink 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+    animation: fadeOutShrink 0.42s var(--easing) both;
 }
 
 .subpage-view .scanlines,
