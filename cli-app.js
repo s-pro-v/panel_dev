@@ -5,73 +5,42 @@
     const THEME_STORAGE_KEY = "CLI_TOOLKIT_THEME";
 
     /**
-     * Obrazy tła paneli — stałe URL (Unsplash) dopasowane do tematu modułu.
-     * Nieznany id → picsum z seedem (stabilny obraz na moduł).
+     * Wektorowe tła paneli w formacie SVG (HUD / blueprint).
      */
-    const MODULE_PANEL_IMAGES = {
-        win_net_sys: {
-            url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&h=800&q=80",
-            alt: "Sieć, połączenia, infrastruktura",
-        },
-        /* PowerShell — Pexels (kod/ekran); przy błędzie → Picsum w onerror */
-        ps_devops: {
-            url: "https://images.pexels.com/photos/3861964/pexels-photo-3861964.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
-            alt: "PowerShell — DevOps i automatyzacja",
-        },
-        ps_adv: {
-            url: "https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
-            alt: "PowerShell — operacje zaawansowane",
-        },
-        /* Diagnostyka — UI vs sprzęt (osobne zdjęcia) */
-        diag_ui: {
-            url: "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
-            alt: "Diagnostyka — narzędzia i interfejs Windows",
-        },
-        diag_hw: {
-            url: "https://images.pexels.com/photos/163100/pexels-photo-163100.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
-            alt: "Diagnostyka — sprzęt, logi, wydajność",
-        },
-        sys_fix: {
-            url: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&h=800&q=80",
-            alt: "Naprawa i serwis",
-        },
-        net_repair: {
-            url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&h=800&q=80",
-            alt: "Sieć Wi‑Fi i łączność",
-        },
-        cmd_daily: {
-            url: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=800&h=800&q=80",
-            alt: "Klawiatura i szybkie polecenia",
-        },
-        /* Windows Package Manager (winget) — paczki / magazyn */
-        winget_pkg: {
-            url: "https://images.pexels.com/photos/4484078/pexels-photo-4484078.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
-            alt: "Windows Package Manager — winget",
-        },
-        maint_policy: {
-            url: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&h=800&q=80",
-            alt: "Bezpieczeństwo i polityki",
-        },
-        safe_mode: {
-            url: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&h=800&q=80",
-            alt: "Ochrona i tryb awaryjny",
-        },
-        reset_dns: {
-            url: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&h=800&q=80",
-            alt: "Przepływ danych i DNS",
-        },
+    const MODULE_PANEL_SVGS = {
+        win_net_sys: '<svg class="panel-svg-bg svg-theme-net" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-axis" cx="50" cy="50" r="5" stroke-width="0.5"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><path class="hud-accent" d="M28 32 L46 29 L46 47 L28 47 Z M28 49 L46 49 L46 67 L28 64 Z M48 28.5 L72 24 L72 47 L48 47 Z M48 49 L72 49 L72 72 L48 67.5 Z" stroke-width="1.2"/><line class="hud-wire" x1="28" y1="32" x2="12" y2="20" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="20" r="2" fill="currentColor"/><line class="hud-wire" x1="28" y1="64" x2="12" y2="75" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="75" r="2" fill="currentColor"/><line class="hud-wire" x1="72" y1="24" x2="88" y2="15" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="15" r="2" fill="currentColor"/><line class="hud-wire" x1="72" y1="72" x2="88" y2="80" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="80" r="2" fill="currentColor"/><path class="hud-wire" d="M 12 20 L 12 75" stroke-width="0.5" stroke-dasharray="1,2"/><path class="hud-wire" d="M 88 15 L 88 80" stroke-width="0.5" stroke-dasharray="1,2"/><path class="hud-wire" d="M 12 20 C 50 0, 50 0, 88 15" stroke-width="0.5" stroke-dasharray="2,3"/></svg>',
+
+        ps_devops: '<svg class="panel-svg-bg svg-theme-ps" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><path class="hud-accent" d="M38 30 C30 30, 32 38, 32 50 C 32 62, 30 70, 38 70" stroke-width="1.2" stroke-linecap="round"/><path class="hud-accent" d="M62 30 C70 30, 68 38, 68 50 C 68 62, 70 70, 62 70" stroke-width="1.2" stroke-linecap="round"/><path class="hud-accent" d="M42 43 L48 50 L42 57" stroke-width="1.2" stroke-linecap="round"/><line class="hud-accent" x1="50" y1="57" x2="58" y2="57" stroke-width="1.5" stroke-linecap="round"/><line class="hud-wire" x1="32" y1="50" x2="12" y2="50" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="50" r="2.5" fill="currentColor"/><line class="hud-wire" x1="68" y1="50" x2="88" y2="50" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="50" r="2.5" fill="currentColor"/><line class="hud-wire" x1="50" y1="30" x2="50" y2="12" stroke-width="0.8"/><circle class="hud-node" cx="50" cy="12" r="2" fill="currentColor"/><line class="hud-wire" x1="50" y1="70" x2="50" y2="88" stroke-width="0.8"/><circle class="hud-node" cx="50" cy="88" r="2" fill="currentColor"/></svg>',
+
+        diag_ui: '<svg class="panel-svg-bg svg-theme-diag" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><rect class="hud-accent" x="25" y="30" width="50" height="40" rx="2" stroke-width="1.2" fill="none"/><line class="hud-accent" x1="25" y1="38" x2="75" y2="38" stroke-width="0.8"/><circle class="hud-node" cx="31" cy="34" r="1" fill="currentColor"/><circle class="hud-node" cx="35" cy="34" r="1" fill="currentColor"/><path class="hud-accent" d="M 30 60 L 40 45 L 48 65 L 56 50 L 64 62 L 70 55" stroke-width="1.2" stroke-linecap="round"/><line class="hud-wire" x1="25" y1="50" x2="12" y2="35" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="35" r="2" fill="currentColor"/><line class="hud-wire" x1="25" y1="60" x2="12" y2="65" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="65" r="2" fill="currentColor"/><line class="hud-wire" x1="75" y1="50" x2="88" y2="35" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="35" r="2" fill="currentColor"/><line class="hud-wire" x1="75" y1="60" x2="88" y2="65" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="65" r="2" fill="currentColor"/></svg>',
+
+        sys_fix: '<svg class="panel-svg-bg svg-theme-critical" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><path class="hud-accent" d="M30 30 L50 22 L70 30 L70 52 C70 65, 50 78, 50 78 C50 78, 30 65, 30 52 Z" stroke-width="1.2"/><circle class="hud-accent" cx="50" cy="46" r="10" stroke-width="1"/><path class="hud-accent" d="M50 32 L50 35 M50 57 L50 60 M39 46 L42 46 M58 46 L61 46 M42 38 L44 40 M58 54 L60 56 M42 54 L44 52 M58 38 L60 40" stroke-width="2" stroke-linecap="round"/><line class="hud-wire" x1="30" y1="30" x2="12" y2="20" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="20" r="2.5" fill="currentColor"/><line class="hud-wire" x1="70" y1="30" x2="88" y2="20" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="20" r="2.5" fill="currentColor"/><line class="hud-wire" x1="50" y1="78" x2="50" y2="90" stroke-width="0.8"/><circle class="hud-node" cx="50" cy="90" r="2" fill="currentColor"/></svg>',
+
+        net_repair: '<svg class="panel-svg-bg" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><path class="hud-accent" d="M30 40 A28 28 0 0 1 70 40" stroke-width="1.2" stroke-linecap="round"/><path class="hud-accent" d="M37 49 A18 18 0 0 1 63 49" stroke-width="1.2" stroke-linecap="round"/><path class="hud-accent" d="M44 58 A8 8 0 0 1 56 58" stroke-width="1.2" stroke-linecap="round"/><circle class="hud-node" cx="50" cy="65" r="2" fill="currentColor"/><rect class="hud-accent" x="30" y="70" width="40" height="12" rx="1" stroke-width="1"/><circle class="hud-node" cx="36" cy="76" r="1" fill="currentColor"/><circle class="hud-node" cx="41" cy="76" r="1" fill="currentColor"/><line class="hud-wire" x1="30" y1="40" x2="12" y2="35" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="35" r="2" fill="currentColor"/><line class="hud-wire" x1="70" y1="40" x2="88" y2="35" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="35" r="2" fill="currentColor"/></svg>',
+
+        diag_hw: '<svg class="panel-svg-bg svg-theme-diag" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><rect class="hud-accent" x="30" y="30" width="40" height="40" rx="3" stroke-width="1.5" fill="none"/><rect class="hud-accent" x="42" y="42" width="16" height="16" stroke-width="1"/><line class="hud-wire" x1="20" y1="35" x2="30" y2="35" stroke-width="1"/><circle class="hud-node" cx="16" cy="35" r="1.5" fill="currentColor"/><line class="hud-wire" x1="20" y1="50" x2="30" y2="50" stroke-width="1"/><circle class="hud-node" cx="16" cy="50" r="1.5" fill="currentColor"/><line class="hud-wire" x1="20" y1="65" x2="30" y2="65" stroke-width="1"/><circle class="hud-node" cx="16" cy="65" r="1.5" fill="currentColor"/><line class="hud-wire" x1="70" y1="35" x2="80" y2="35" stroke-width="1"/><circle class="hud-node" cx="84" cy="35" r="1.5" fill="currentColor"/><line class="hud-wire" x1="70" y1="50" x2="80" y2="50" stroke-width="1"/><circle class="hud-node" cx="84" cy="50" r="1.5" fill="currentColor"/><line class="hud-wire" x1="70" y1="65" x2="80" y2="65" stroke-width="1"/><circle class="hud-node" cx="84" cy="65" r="1.5" fill="currentColor"/><line class="hud-wire" x1="38" y1="20" x2="38" y2="30" stroke-width="1"/><circle class="hud-node" cx="38" cy="16" r="1.5" fill="currentColor"/><line class="hud-wire" x1="50" y1="20" x2="50" y2="30" stroke-width="1"/><circle class="hud-node" cx="50" cy="16" r="1.5" fill="currentColor"/><line class="hud-wire" x1="62" y1="20" x2="62" y2="30" stroke-width="1"/><circle class="hud-node" cx="62" cy="16" r="1.5" fill="currentColor"/><line class="hud-wire" x1="38" y1="70" x2="38" y2="80" stroke-width="1"/><circle class="hud-node" cx="38" cy="84" r="1.5" fill="currentColor"/><line class="hud-wire" x1="50" y1="70" x2="50" y2="80" stroke-width="1"/><circle class="hud-node" cx="50" cy="84" r="1.5" fill="currentColor"/><line class="hud-wire" x1="62" y1="70" x2="62" y2="80" stroke-width="1"/><circle class="hud-node" cx="62" cy="84" r="1.5" fill="currentColor"/></svg>',
+
+        cmd_daily: '<svg class="panel-svg-bg svg-theme-daily" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><rect class="hud-accent" x="25" y="32" width="50" height="36" rx="2" stroke-width="1.2"/><path class="hud-accent" d="M31 44 L37 50 L31 56" stroke-width="1.2" stroke-linecap="round"/><line class="hud-accent" x1="40" y1="56" x2="52" y2="56" stroke-width="1.5" stroke-linecap="round"/><path class="hud-accent" d="M 68 20 L 53 43 L 64 43 L 49 70 L 76 37 L 65 37 Z" fill="none" stroke-width="1"/><line class="hud-wire" x1="25" y1="50" x2="12" y2="50" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="50" r="2.5" fill="currentColor"/></svg>',
+
+        winget_pkg: '<svg class="panel-svg-bg svg-theme-winget" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><path class="hud-accent" d="M50 25 L75 38 L75 68 L50 81 L25 68 L25 38 Z" stroke-width="1.2"/><path class="hud-accent" d="M50 25 L50 81 M50 53 L25 38 M50 53 L75 38" stroke-width="1"/><path class="hud-accent" d="M50 4 L50 18 M45 13 L50 18 L55 13" stroke-width="1.5" stroke-linecap="round"/><line class="hud-wire" x1="25" y1="53" x2="10" y2="53" stroke-width="0.8"/><circle class="hud-node" cx="10" cy="53" r="2" fill="currentColor"/><line class="hud-wire" x1="75" y1="53" x2="90" y2="53" stroke-width="0.8"/><circle class="hud-node" cx="90" cy="53" r="2" fill="currentColor"/></svg>',
+
+        maint_policy: '<svg class="panel-svg-bg svg-theme-maint" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><rect class="hud-accent" x="28" y="22" width="34" height="46" rx="2" stroke-width="1.2"/><line class="hud-accent" x1="36" y1="32" x2="54" y2="32" stroke-width="0.8"/><line class="hud-accent" x1="36" y1="40" x2="54" y2="40" stroke-width="0.8"/><line class="hud-accent" x1="36" y1="48" x2="46" y2="48" stroke-width="0.8"/><rect class="hud-accent" x="50" y="52" width="22" height="16" rx="1.5" stroke-width="1" fill="var(--panel)"/><path class="hud-accent" d="M55 52 L55 46 C55 41, 67 41, 67 46 L67 52" stroke-width="1"/><circle class="hud-node" cx="61" cy="60" r="1" fill="currentColor"/><line class="hud-wire" x1="28" y1="45" x2="12" y2="45" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="45" r="2.5" fill="currentColor"/><line class="hud-wire" x1="62" y1="22" x2="78" y2="15" stroke-width="0.8"/><circle class="hud-node" cx="78" cy="15" r="2" fill="currentColor"/></svg>',
+
+        ps_adv: '<svg class="panel-svg-bg svg-theme-ps" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><rect class="hud-accent" x="25" y="28" width="50" height="44" rx="2" stroke-width="1.2"/><text class="hud-accent" x="32" y="55" font-family="monospace" font-size="24" font-weight="900" fill="currentColor" stroke="none">$</text><line class="hud-accent" x1="50" y1="36" x2="68" y2="36" stroke-width="0.8"/><line class="hud-accent" x1="50" y1="44" x2="68" y2="44" stroke-width="0.8"/><circle class="hud-accent" cx="50" cy="58" r="3"/><circle class="hud-accent" cx="62" cy="58" r="3"/><line class="hud-wire" x1="25" y1="50" x2="12" y2="50" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="50" r="2.5" fill="currentColor"/><line class="hud-wire" x1="75" y1="50" x2="88" y2="50" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="50" r="2.5" fill="currentColor"/></svg>',
+
+        safe_mode: '<svg class="panel-svg-bg svg-theme-critical" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><circle class="hud-accent" cx="50" cy="50" r="24" stroke-width="1.5"/><circle class="hud-accent" cx="50" cy="50" r="12" stroke-width="1"/><line class="hud-accent" x1="50" y1="26" x2="50" y2="38" stroke-width="2"/><line class="hud-accent" x1="50" y1="62" x2="50" y2="74" stroke-width="2"/><line class="hud-accent" x1="26" y1="50" x2="38" y2="50" stroke-width="2"/><line class="hud-accent" x1="62" y1="50" x2="74" y2="50" stroke-width="2"/><path class="hud-wire" d="M 20 80 L 80 80 M 30 80 L 40 90 M 50 80 L 60 90 M 70 80 L 80 90" stroke-width="0.8"/><line class="hud-wire" x1="26" y1="50" x2="12" y2="35" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="35" r="2" fill="currentColor"/><line class="hud-wire" x1="74" y1="50" x2="88" y2="35" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="35" r="2" fill="currentColor"/></svg>',
+
+        reset_dns: '<svg class="panel-svg-bg svg-theme-net" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><circle class="hud-accent" cx="50" cy="50" r="18" stroke-width="1" stroke-dasharray="2,1"/><ellipse class="hud-accent" cx="50" cy="50" rx="18" ry="6"/><ellipse class="hud-accent" cx="50" cy="50" rx="6" ry="18"/><path class="hud-accent" d="M 24 50 A 26 26 0 1 1 50 76" stroke-width="1.2"/><path class="hud-accent" d="M 76 50 A 26 26 0 1 1 50 24" stroke-width="1.2"/><polygon class="hud-node" points="50,80 54,72 46,72" fill="currentColor"/><polygon class="hud-node" points="50,20 54,28 46,28" fill="currentColor"/><line class="hud-wire" x1="24" y1="50" x2="10" y2="50" stroke-width="0.8"/><circle class="hud-node" cx="10" cy="50" r="2.5" fill="currentColor"/></svg>',
+
+        event_logs: '<svg class="panel-svg-bg svg-theme-diag" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><circle class="hud-accent" cx="36" cy="42" r="15" stroke-width="1"/><line class="hud-accent" x1="36" y1="42" x2="36" y2="32" stroke-width="1.2"/><line class="hud-accent" x1="36" y1="42" x2="45" y2="42" stroke-width="1.2"/><rect class="hud-accent" x="52" y="32" width="26" height="36" rx="1" stroke-width="1.2"/><line class="hud-accent" x1="57" y1="40" x2="73" y2="40" stroke-width="0.8"/><line class="hud-accent" x1="57" y1="48" x2="73" y2="48" stroke-width="0.8"/><line class="hud-accent" x1="57" y1="56" x2="67" y2="56" stroke-width="0.8"/><line class="hud-wire" x1="21" y1="42" x2="10" y2="42" stroke-width="0.8"/><circle class="hud-node" cx="10" cy="42" r="2" fill="currentColor"/><line class="hud-wire" x1="78" y1="50" x2="90" y2="50" stroke-width="0.8"/><circle class="hud-node" cx="90" cy="50" r="2" fill="currentColor"/></svg>',
+
+        printers_devices: '<svg class="panel-svg-bg svg-theme-maint" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><path class="hud-accent" d="M 32 46 L 68 46 L 72 64 L 28 64 Z" stroke-width="1.2"/><rect class="hud-accent" x="40" y="28" width="20" height="18" rx="1" stroke-width="0.8"/><line class="hud-accent" x1="44" y1="34" x2="56" y2="34" stroke-width="0.6"/><line class="hud-accent" x1="44" y1="40" x2="56" y2="40" stroke-width="0.6"/><rect class="hud-accent" x="36" y="64" width="28" height="12" rx="1" stroke-width="0.8"/><path class="hud-wire" d="M 16 50 C 16 38, 28 38, 28 46" stroke-width="0.8" stroke-dasharray="2,2"/><circle class="hud-node" cx="16" cy="50" r="2" fill="currentColor"/></svg>',
+
+        troubleshoot: '<svg class="panel-svg-bg svg-theme-critical" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><circle class="hud-accent" cx="44" cy="44" r="16" stroke-width="1.2"/><line class="hud-accent" x1="55" y1="55" x2="76" y2="76" stroke-width="2.5" stroke-linecap="round"/><rect class="hud-accent" x="41" y="38" width="6" height="12" rx="2" stroke-width="0.8" fill="none"/><circle class="hud-node" cx="44" cy="35" r="1.5" fill="currentColor"/><path class="hud-accent" d="M 36 40 L 41 41 M 35 44 L 41 44 M 36 48 L 41 47 M 52 40 L 47 41 M 53 44 L 47 44 M 52 48 L 47 47" stroke-width="0.8"/><line class="hud-wire" x1="76" y1="76" x2="88" y2="88" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="88" r="2.5" fill="currentColor"/><line class="hud-wire" x1="28" y1="44" x2="12" y2="44" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="44" r="2.5" fill="currentColor"/></svg>'
     };
 
-    function getPanelImage(moduleId) {
-        const m = MODULE_PANEL_IMAGES[moduleId];
-        if (m) return m;
-        return {
-            url:
-                "https://picsum.photos/seed/" +
-                encodeURIComponent(moduleId) +
-                "/800/800",
-            alt: "Moduł " + moduleId,
-        };
+    function getPanelSvg(moduleId) {
+        return MODULE_PANEL_SVGS[moduleId] || '';
     }
 
     function getTheme() {
@@ -535,17 +504,11 @@
             panel.dataset.panelId = item.id;
             panel.style.setProperty("--panel-stagger", String(index));
 
-            const panelImg = getPanelImage(item.id);
+            const panelSvg = getPanelSvg(item.id);
             panel.innerHTML =
                 '<div class="corner corner-tl"></div>' +
                 '<div class="corner corner-br"></div>' +
-                '<img src="' +
-                panelImg.url +
-                '" alt="' +
-                escapeHtml(panelImg.alt) +
-                '" loading="lazy" decoding="async" data-panel-id="' +
-                escapeHtml(item.id) +
-                '">' +
+                panelSvg +
                 '<div class="panel-content">' +
                 '<div class="collapsed-info">' +
                 '<div class="icon-box">' +
@@ -586,18 +549,6 @@
                 "</div>" +
                 "</div>" +
                 "</div>";
-
-            const imgEl = panel.querySelector("img");
-            if (imgEl) {
-                const fallbackSrc =
-                    "https://picsum.photos/seed/" + encodeURIComponent(item.id) + "/800/800";
-                imgEl.addEventListener("error", function onPanelImgErr() {
-                    if (imgEl.getAttribute("data-fallback-applied") === "1") return;
-                    imgEl.setAttribute("data-fallback-applied", "1");
-                    imgEl.removeEventListener("error", onPanelImgErr);
-                    imgEl.src = fallbackSrc;
-                });
-            }
 
             const activate = function () {
                 document.querySelectorAll("#grid-root .panel").forEach(function (p) {

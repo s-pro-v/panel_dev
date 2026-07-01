@@ -326,6 +326,7 @@
     max-width: 100%;
     hyphens: auto;
     font-size: clamp(0.65rem, 0.5rem + 6cqi, 1.75rem);
+    padding: 0 1rem;
 }
 
 @media (max-width: 767px) {
@@ -366,4 +367,263 @@
     line-height: 1.25;
     padding-bottom: 0;
     border-bottom: none;
+}
+
+/* SVG HUD base rules */
+.panel-svg-bg .hud-axis,
+.panel-svg-bg .hud-grid {
+    stroke: var(--border-color);
+    opacity: 0.35;
+    transition: stroke 0.4s var(--easing), opacity 0.4s var(--easing);
+}
+
+.panel-svg-bg .hud-wire {
+    stroke: var(--text-muted);
+    opacity: 0.25;
+    transition: stroke 0.4s var(--easing), opacity 0.4s var(--easing);
+}
+
+.panel-svg-bg .hud-accent {
+    stroke: var(--text-muted);
+    transition: stroke 0.4s var(--easing), fill 0.4s var(--easing);
+}
+
+.panel-svg-bg .hud-node {
+    fill: var(--text-muted);
+    stroke: none;
+    transition: fill 0.4s var(--easing);
+}
+
+/* Hover and active color overrides based on theme classes */
+/* Network theme */
+.panel:hover:not(.active) .svg-theme-net .hud-accent,
+.panel:hover:not(.active) .svg-theme-net .hud-wire {
+    stroke: var(--svg-net);
+}
+
+.panel:hover:not(.active) .svg-theme-net .hud-node {
+    fill: var(--svg-net);
+}
+
+.panel.active .svg-theme-net .hud-accent,
+.panel.active .svg-theme-net .hud-wire {
+    stroke: var(--svg-net);
+}
+
+.panel.active .svg-theme-net .hud-node {
+    fill: var(--svg-net);
+}
+
+/* PowerShell theme */
+.panel:hover:not(.active) .svg-theme-ps .hud-accent,
+.panel:hover:not(.active) .svg-theme-ps .hud-wire {
+    stroke: var(--svg-ps);
+}
+
+.panel:hover:not(.active) .svg-theme-ps .hud-node {
+    fill: var(--svg-ps);
+}
+
+.panel.active .svg-theme-ps .hud-accent,
+.panel.active .svg-theme-ps .hud-wire {
+    stroke: var(--svg-ps);
+}
+
+.panel.active .svg-theme-ps .hud-node {
+    fill: var(--svg-ps);
+}
+
+/* Diagnostics theme */
+.panel:hover:not(.active) .svg-theme-diag .hud-accent,
+.panel:hover:not(.active) .svg-theme-diag .hud-wire {
+    stroke: var(--svg-diag);
+}
+
+.panel:hover:not(.active) .svg-theme-diag .hud-node {
+    fill: var(--svg-diag);
+}
+
+.panel.active .svg-theme-diag .hud-accent,
+.panel.active .svg-theme-diag .hud-wire {
+    stroke: var(--svg-diag);
+}
+
+.panel.active .svg-theme-diag .hud-node {
+    fill: var(--svg-diag);
+}
+
+/* Critical theme */
+.panel:hover:not(.active) .svg-theme-critical .hud-accent,
+.panel:hover:not(.active) .svg-theme-critical .hud-wire {
+    stroke: var(--svg-critical);
+}
+
+.panel:hover:not(.active) .svg-theme-critical .hud-node {
+    fill: var(--svg-critical);
+}
+
+.panel.active .svg-theme-critical .hud-accent,
+.panel.active .svg-theme-critical .hud-wire {
+    stroke: var(--svg-critical);
+}
+
+.panel.active .svg-theme-critical .hud-node {
+    fill: var(--svg-critical);
+}
+
+/* Daily theme */
+.panel:hover:not(.active) .svg-theme-daily .hud-accent,
+.panel:hover:not(.active) .svg-theme-daily .hud-wire {
+    stroke: var(--svg-daily);
+}
+
+.panel:hover:not(.active) .svg-theme-daily .hud-node {
+    fill: var(--svg-daily);
+}
+
+.panel.active .svg-theme-daily .hud-accent,
+.panel.active .svg-theme-daily .hud-wire {
+    stroke: var(--svg-daily);
+}
+
+.panel.active .svg-theme-daily .hud-node {
+    fill: var(--svg-daily);
+}
+
+/* Winget theme */
+.panel:hover:not(.active) .svg-theme-winget .hud-accent,
+.panel:hover:not(.active) .svg-theme-winget .hud-wire {
+    stroke: var(--svg-winget);
+}
+
+.panel:hover:not(.active) .svg-theme-winget .hud-node {
+    fill: var(--svg-winget);
+}
+
+.panel.active .svg-theme-winget .hud-accent,
+.panel.active .svg-theme-winget .hud-wire {
+    stroke: var(--svg-winget);
+}
+
+.panel.active .svg-theme-winget .hud-node {
+    fill: var(--svg-winget);
+}
+
+/* Maintenance theme */
+.panel:hover:not(.active) .svg-theme-maint .hud-accent,
+.panel:hover:not(.active) .svg-theme-maint .hud-wire {
+    stroke: var(--svg-maint);
+}
+
+.panel:hover:not(.active) .svg-theme-maint .hud-node {
+    fill: var(--svg-maint);
+}
+
+.panel.active .svg-theme-maint .hud-accent,
+.panel.active .svg-theme-maint .hud-wire {
+    stroke: var(--svg-maint);
+}
+
+.panel.active .svg-theme-maint .hud-node {
+    fill: var(--svg-maint);
+}
+
+/* Custom category backgrounds on hover & active */
+.panel:has(.svg-theme-net):hover:not(.active) {
+    background-color: color-mix(in srgb, var(--svg-net) 4%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-net).active {
+    background-color: color-mix(in srgb, var(--svg-net) 6%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-ps):hover:not(.active) {
+    background-color: color-mix(in srgb, var(--svg-ps) 4%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-ps).active {
+    background-color: color-mix(in srgb, var(--svg-ps) 6%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-diag):hover:not(.active) {
+    background-color: color-mix(in srgb, var(--svg-diag) 4%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-diag).active {
+    background-color: color-mix(in srgb, var(--svg-diag) 6%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-critical):hover:not(.active) {
+    background-color: color-mix(in srgb, var(--svg-critical) 4%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-critical).active {
+    background-color: color-mix(in srgb, var(--svg-critical) 6%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-daily):hover:not(.active) {
+    background-color: color-mix(in srgb, var(--svg-daily) 4%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-daily).active {
+    background-color: color-mix(in srgb, var(--svg-daily) 6%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-winget):hover:not(.active) {
+    background-color: color-mix(in srgb, var(--svg-winget) 4%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-winget).active {
+    background-color: color-mix(in srgb, var(--svg-winget) 6%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-maint):hover:not(.active) {
+    background-color: color-mix(in srgb, var(--svg-maint) 4%, var(--panel-bg));
+}
+
+.panel:has(.svg-theme-maint).active {
+    background-color: color-mix(in srgb, var(--svg-maint) 6%, var(--panel-bg));
+}
+
+/* Color overrides for .icon-box on hover according to category SVG theme */
+.panel:has(.svg-theme-net):hover .icon-box {
+    border-color: var(--svg-net);
+    color: var(--svg-net);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--svg-net) 30%, transparent);
+}
+
+.panel:has(.svg-theme-ps):hover .icon-box {
+    border-color: var(--svg-ps);
+    color: var(--svg-ps);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--svg-ps) 30%, transparent);
+}
+
+.panel:has(.svg-theme-diag):hover .icon-box {
+    border-color: var(--svg-diag);
+    color: var(--svg-diag);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--svg-diag) 30%, transparent);
+}
+
+.panel:has(.svg-theme-critical):hover .icon-box {
+    border-color: var(--svg-critical);
+    color: var(--svg-critical);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--svg-critical) 30%, transparent);
+}
+
+.panel:has(.svg-theme-daily):hover .icon-box {
+    border-color: var(--svg-daily);
+    color: var(--svg-daily);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--svg-daily) 30%, transparent);
+}
+
+.panel:has(.svg-theme-winget):hover .icon-box {
+    border-color: var(--svg-winget);
+    color: var(--svg-winget);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--svg-winget) 30%, transparent);
+}
+
+.panel:has(.svg-theme-maint):hover .icon-box {
+    border-color: var(--svg-maint);
+    color: var(--svg-maint);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--svg-maint) 30%, transparent);
 }
