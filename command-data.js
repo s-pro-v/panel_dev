@@ -1,4 +1,4 @@
-﻿var commandModules = [
+var commandModules = [
     {
         id: "win_net_sys",
         name: "Windows [Net & Sys]",
@@ -160,6 +160,9 @@
             { id: 4001, cmd: "cleanmgr", critical: false, desc: "Kreator Oczyszczania dysku: miniatury, Kosz, pliki tymczasowe, logi aktualizacji. Wybierz dysk i kategorie do usunięcia — zwolnienie miejsca bez ręcznego grzebania po folderach." },
             { id: 4002, cmd: "defrag C: /A", critical: false, desc: "/A tylko analiza (czy wolumen wymaga optymalizacji). Na SSD Windows 10+ zwykle wykonuje TRIM zamiast klasycznej defragmentacji — sprawdź typ dysku przed ręcznym defrag." },
             { id: 4003, cmd: "cipher /w:C:", critical: false, desc: "Nadpisuje wolną przestrzeń zerami (wielokrotnie w nowszych wersjach), utrudniając odzyskanie skasowanych plików. Długo trwa na dużych dyskach; nie zastępuje szyfrowania całego dysku (BitLocker)." },
+            { id: 4004, cmd: "pnputil /enum-drivers", critical: false, desc: "Wyświetla listę wszystkich zainstalowanych zewnętrznych sterowników (oemXX.inf). Pomaga zidentyfikować stare lub zbędne pakiety sterowników." },
+            { id: 4005, cmd: "pnputil /delete-driver oemXX.inf /uninstall /force", critical: true, desc: "Odinstalowuje i całkowicie usuwa wybrany pakiet sterownika (podmień oemXX.inf) z magazynu sterowników systemowych." },
+            { id: 4006, cmd: "cmd.exe /c \"set devmgr_show_nonpresent_devices=1 && start devmgmt.msc\"", critical: false, desc: "Uruchamia Menedżer Urządzeń z widocznością odłączonych/starych urządzeń (w menu Widok wybierz 'Pokaż ukryte urządzenia', aby je odinstalować)." },
             { id: 5001, cmd: "net user", critical: false, desc: "Lista kont lokalnych (nie domenowych). Z parametrem nazwy konta: szczegóły, wymuszenie hasła, aktywność. Wymaga uprawnień do odczytu SAM." },
             { id: 5002, cmd: "net localgroup administrators", critical: false, desc: "Członkowie grupy Administratorzy lokalnie — kto ma pełne prawa na tej maszynie. Audyt bezpieczeństwa po dodaniu oprogramowania lub współdzielonym PC." },
             { id: 5003, cmd: "whoami /all", critical: false, desc: "Pełny kontekst bezpieczeństwa: nazwa, SID, grupy, przywileje (SeDebugPrivilege itd.). Diagnostyka „dlaczego nie mam dostępu” w domenie lub z UAC." },
@@ -197,6 +200,45 @@
             { cmd: "ipconfig /release", desc: "Zwalnia dzierżawę adresu IPv4 z interfejsów DHCP (Ethernet/Wi‑Fi). Po tym zwykle brak internetu do momentu renew / restartu routera." },
             { cmd: "ipconfig /renew", desc: "Prosi serwer DHCP o nowy adres (często po release). Router może przydzielić ten sam lub inny IP w zależności od puli." },
             { cmd: "netsh winsock reset", desc: "Przywraca domyślny katalog Winsock (warstwa między aplikacjami a TCP/IP). Pomaga po uszkodzeniu przez VPN, malware lub stare filtry LSP; zwykle wymaga restartu systemu." }
+        ]
+    },
+    {
+        id: "event_logs",
+        name: "Dzienniki Zdarzeń [Event Logs]",
+        icon: "history",
+        commands: [
+            { id: 13001, cmd: "wevtutil el | Foreach-Object {wevtutil cl \"$_\"}", critical: true, desc: "Czyści wszystkie dzienniki zdarzeń w systemie Windows za pomocą PowerShell. Przydatne do usuwania śladów i zwalniania miejsca; wymaga uprawnień administratora." },
+            { id: 13002, cmd: "wevtutil el", critical: false, desc: "Wypisuje nazwy wszystkich dzienników zdarzeń dostępnych w systemie Windows." },
+            { id: 13003, cmd: "wevtutil cl Application", critical: false, desc: "Czyści określony dziennik zdarzeń (np. Application, System, Security). Wymaga administratora." },
+            { id: 13004, cmd: "wevtutil epl System C:\\backup_system.evtx", critical: false, desc: "Tworzy kopię zapasową (eksport) wybranego dziennika (np. System) do pliku .evtx pod wskazaną ścieżką." },
+            { id: 13005, cmd: "wevtutil gli System", critical: false, desc: "Wyświetla szczegółowe informacje o statusie i rozmiarze wybranego dziennika zdarzeń." }
+        ]
+    },
+    {
+        id: "printers_devices",
+        name: "Drukarki i Urządzenia [Printers]",
+        icon: "print",
+        commands: [
+            { id: 14001, cmd: "Get-Printer", critical: false, desc: "Wyświetla listę wszystkich zainstalowanych drukarek w systemie (lokalnych i sieciowych) wraz z ich statusem i nazwami portów." },
+            { id: 14002, cmd: "Add-Printer -Name \"NazwaDrukarki\" -PortName \"LPT1:\" -DriverName \"Microsoft Print to PDF\"", critical: false, desc: "Dodaje nową lokalną drukarkę. Zmień nazwę, port i nazwę sterownika pod swoje urządzenie." },
+            { id: 14003, cmd: "Add-Printer -ConnectionName \"\\\\serwer\\nazwa_drukarki\"", critical: false, desc: "Podłącza sieciową drukarkę udostępnioną na innym komputerze/serwerze za pomocą ścieżki UNC." },
+            { id: 14004, cmd: "Remove-Printer -Name \"NazwaDrukarki\"", critical: false, desc: "Usuwa wybraną drukarkę z systemu na podstawie jej nazwy." },
+            { id: 14005, cmd: "net stop spooler && net start spooler", critical: false, desc: "Restartuje usługę Buforu Wydruku (Print Spooler). Najprostszy sposób na rozwiązanie problemów z zawieszonym drukowaniem." },
+            { id: 14006, cmd: "Stop-Service -Name Spooler -Force; Remove-Item -Path $env:SystemRoot\\System32\\Spool\\Printers\\* -Force; Start-Service -Name Spooler", critical: true, desc: "Zatrzymuje bufor wydruku, czyści wszystkie zawieszone dokumenty w kolejce i ponownie włącza usługę. Rozwiązuje problem zablokowanej kolejki." },
+            { id: 14007, cmd: "explorer shell:::{26EE0668-A00A-44D7-9371-BEB064C98683}\\0\\::{2227A280-3AEA-1069-A2DE-08002B30309D}", critical: false, desc: "Otwiera klasyczne okno folderu Drukarki w Eksploratorze Windows (wygodne do zarządzania i usuwania zadań)." }
+        ]
+    },
+    {
+        id: "troubleshoot",
+        name: "Rozwiązywanie Problemów [Diagnostics]",
+        icon: "bug",
+        commands: [
+            { id: 15001, cmd: "perfmon /rel", critical: false, desc: "Otwiera Monitor Niezawodności (Reliability Monitor). Pokazuje oś czasu z błędami aplikacji i systemu, umożliwiając szukanie rozwiązań problemów." },
+            { id: 15002, cmd: "Get-EventLog -LogName System -Source \"BugCheck\" -Newest 5", critical: false, desc: "Pobiera z dziennika zdarzeń szczegóły o ostatnich 5 nagłych restartach systemu (BSOD / BugCheck)." },
+            { id: 15003, cmd: "msdt.exe /id WindowsUpdateDiagnostic", critical: false, desc: "Uruchamia wbudowany automatyczny kreator naprawy problemów z aktualizacjami Windows Update." },
+            { id: 15004, cmd: "msdt.exe /id NetworkDiagnosticNetworkAdapter", critical: false, desc: "Uruchamia wbudowane narzędzie do diagnozy i automatycznego rozwiązywania problemów z kartą sieciową." },
+            { id: 15005, cmd: "msdt.exe /id DeviceDiagnostic", critical: false, desc: "Uruchamia narzędzie do automatycznego rozwiązywania problemów ze sprzętem i nowo podłączonymi urządzeniami." },
+            { id: 15006, cmd: "findstr /c:\"[SR]\" %windir%\\logs\\cbs\\cbs.log > \"%userprofile%\\Desktop\\sfcdetails.txt\"", critical: false, desc: "Ekstrahuje wyniki działania sfc /scannow i zapisuje na pulpicie plik sfcdetails.txt z listą uszkodzonych/naprawionych plików." }
         ]
     }
 ];
