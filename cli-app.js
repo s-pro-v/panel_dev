@@ -16,7 +16,7 @@
 
         sys_fix: '<svg class="panel-svg-bg svg-theme-critical" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><path class="hud-accent" d="M30 30 L50 22 L70 30 L70 52 C70 65, 50 78, 50 78 C50 78, 30 65, 30 52 Z" stroke-width="1.2"/><circle class="hud-accent" cx="50" cy="46" r="10" stroke-width="1"/><path class="hud-accent" d="M50 32 L50 35 M50 57 L50 60 M39 46 L42 46 M58 46 L61 46 M42 38 L44 40 M58 54 L60 56 M42 54 L44 52 M58 38 L60 40" stroke-width="2" stroke-linecap="round"/><line class="hud-wire" x1="30" y1="30" x2="12" y2="20" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="20" r="2.5" fill="currentColor"/><line class="hud-wire" x1="70" y1="30" x2="88" y2="20" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="20" r="2.5" fill="currentColor"/><line class="hud-wire" x1="50" y1="78" x2="50" y2="90" stroke-width="0.8"/><circle class="hud-node" cx="50" cy="90" r="2" fill="currentColor"/></svg>',
 
-        net_repair: '<svg class="panel-svg-bg" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><path class="hud-accent" d="M30 40 A28 28 0 0 1 70 40" stroke-width="1.2" stroke-linecap="round"/><path class="hud-accent" d="M37 49 A18 18 0 0 1 63 49" stroke-width="1.2" stroke-linecap="round"/><path class="hud-accent" d="M44 58 A8 8 0 0 1 56 58" stroke-width="1.2" stroke-linecap="round"/><circle class="hud-node" cx="50" cy="65" r="2" fill="currentColor"/><rect class="hud-accent" x="30" y="70" width="40" height="12" rx="1" stroke-width="1"/><circle class="hud-node" cx="36" cy="76" r="1" fill="currentColor"/><circle class="hud-node" cx="41" cy="76" r="1" fill="currentColor"/><line class="hud-wire" x1="30" y1="40" x2="12" y2="35" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="35" r="2" fill="currentColor"/><line class="hud-wire" x1="70" y1="40" x2="88" y2="35" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="35" r="2" fill="currentColor"/></svg>',
+        net_repair: '<svg class="panel-svg-bg svg-theme-net" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><path class="hud-accent" d="M30 40 A28 28 0 0 1 70 40" stroke-width="1.2" stroke-linecap="round"/><path class="hud-accent" d="M37 49 A18 18 0 0 1 63 49" stroke-width="1.2" stroke-linecap="round"/><path class="hud-accent" d="M44 58 A8 8 0 0 1 56 58" stroke-width="1.2" stroke-linecap="round"/><circle class="hud-node" cx="50" cy="65" r="2" fill="currentColor"/><rect class="hud-accent" x="30" y="70" width="40" height="12" rx="1" stroke-width="1"/><circle class="hud-node" cx="36" cy="76" r="1" fill="currentColor"/><circle class="hud-node" cx="41" cy="76" r="1" fill="currentColor"/><line class="hud-wire" x1="30" y1="40" x2="12" y2="35" stroke-width="0.8"/><circle class="hud-node" cx="12" cy="35" r="2" fill="currentColor"/><line class="hud-wire" x1="70" y1="40" x2="88" y2="35" stroke-width="0.8"/><circle class="hud-node" cx="88" cy="35" r="2" fill="currentColor"/></svg>',
 
         diag_hw: '<svg class="panel-svg-bg svg-theme-diag" viewBox="0 0 100 100" fill="none" stroke="currentColor" preserveAspectRatio="xMidYMid meet"><line class="hud-axis" x1="50" y1="8" x2="50" y2="92" stroke-width="0.5" stroke-dasharray="1,4"/><line class="hud-axis" x1="8" y1="50" x2="92" y2="50" stroke-width="0.5" stroke-dasharray="1,4"/><circle class="hud-grid" cx="50" cy="50" r="40" stroke-width="0.6" stroke-dasharray="2,2"/><rect class="hud-accent" x="30" y="30" width="40" height="40" rx="3" stroke-width="1.5" fill="none"/><rect class="hud-accent" x="42" y="42" width="16" height="16" stroke-width="1"/><line class="hud-wire" x1="20" y1="35" x2="30" y2="35" stroke-width="1"/><circle class="hud-node" cx="16" cy="35" r="1.5" fill="currentColor"/><line class="hud-wire" x1="20" y1="50" x2="30" y2="50" stroke-width="1"/><circle class="hud-node" cx="16" cy="50" r="1.5" fill="currentColor"/><line class="hud-wire" x1="20" y1="65" x2="30" y2="65" stroke-width="1"/><circle class="hud-node" cx="16" cy="65" r="1.5" fill="currentColor"/><line class="hud-wire" x1="70" y1="35" x2="80" y2="35" stroke-width="1"/><circle class="hud-node" cx="84" cy="35" r="1.5" fill="currentColor"/><line class="hud-wire" x1="70" y1="50" x2="80" y2="50" stroke-width="1"/><circle class="hud-node" cx="84" cy="50" r="1.5" fill="currentColor"/><line class="hud-wire" x1="70" y1="65" x2="80" y2="65" stroke-width="1"/><circle class="hud-node" cx="84" cy="65" r="1.5" fill="currentColor"/><line class="hud-wire" x1="38" y1="20" x2="38" y2="30" stroke-width="1"/><circle class="hud-node" cx="38" cy="16" r="1.5" fill="currentColor"/><line class="hud-wire" x1="50" y1="20" x2="50" y2="30" stroke-width="1"/><circle class="hud-node" cx="50" cy="16" r="1.5" fill="currentColor"/><line class="hud-wire" x1="62" y1="20" x2="62" y2="30" stroke-width="1"/><circle class="hud-node" cx="62" cy="16" r="1.5" fill="currentColor"/><line class="hud-wire" x1="38" y1="70" x2="38" y2="80" stroke-width="1"/><circle class="hud-node" cx="38" cy="84" r="1.5" fill="currentColor"/><line class="hud-wire" x1="50" y1="70" x2="50" y2="80" stroke-width="1"/><circle class="hud-node" cx="50" cy="84" r="1.5" fill="currentColor"/><line class="hud-wire" x1="62" y1="70" x2="62" y2="80" stroke-width="1"/><circle class="hud-node" cx="62" cy="84" r="1.5" fill="currentColor"/></svg>',
 
@@ -93,23 +93,25 @@
             cmd.startsWith("invoke-") ||
             cmd.startsWith("set-") ||
             cmd.startsWith("test-") ||
-            cmd.startsWith("stop-")
+            cmd.startsWith("stop-") ||
+            cmd.startsWith("add-") ||
+            cmd.startsWith("remove-")
         ) {
             return '<i class="fas fa-code cmd-type-icon cmd-type-icon--ps" title="PowerShell"></i>';
         }
         if (/netsh|ipconfig|ping|arp|route|nbtstat/.test(cmd)) {
             return '<i class="fas fa-globe cmd-type-icon cmd-type-icon--net" title="Network"></i>';
         }
-        if (/dism|sfc|chkdsk|repair|fix/.test(cmd)) {
+        if (/dism|sfc|chkdsk|repair|fix|wevtutil/.test(cmd)) {
             return '<i class="fas fa-medkit cmd-type-icon cmd-type-icon--repair" title="Repair"></i>';
         }
         if (/tasklist|netstat|systeminfo|wmic|fsutil|schtasks/.test(cmd)) {
             return '<i class="fas fa-info-circle cmd-type-icon cmd-type-icon--info" title="Info"></i>';
         }
-        if (/bcdedit/.test(cmd)) {
+        if (/bcdedit|bootrec/.test(cmd)) {
             return '<i class="fas fa-power-off cmd-type-icon cmd-type-icon--boot" title="Boot"></i>';
         }
-        if (/msinfo32|cleanmgr|eventvwr|\.msc|optionalfeatures|resmon|perfmon/.test(cmd)) {
+        if (/msinfo32|cleanmgr|eventvwr|\.msc|optionalfeatures|resmon|perfmon|msdt/.test(cmd)) {
             return '<i class="fas fa-window-maximize cmd-type-icon cmd-type-icon--gui" title="GUI"></i>';
         }
         if (/^winget\b/.test(cmd)) {
@@ -289,15 +291,26 @@
         }
     }
 
-    function copyToClipboard(text, silent) {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        document.body.removeChild(ta);
-        if (!silent) {
-            showToast("COPIED: " + text);
+    async function copyToClipboard(text, silent) {
+        if (!text) return;
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+            } else {
+                const ta = document.createElement("textarea");
+                ta.value = text;
+                ta.style.position = "fixed";
+                ta.style.opacity = "0";
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand("copy");
+                document.body.removeChild(ta);
+            }
+            if (!silent) {
+                showToast("COPIED: " + text);
+            }
+        } catch (err) {
+            showToast("BŁĄD KOPIOWANIA");
         }
     }
 
@@ -325,6 +338,8 @@
         cmds.forEach(function (item) {
             const li = document.createElement("li");
             li.className = "cli-cmd-row";
+            li.setAttribute("role", "button");
+            li.setAttribute("tabindex", "0");
             li.innerHTML =
                 '<div class="cli-cmd-line">' +
                 '<span class="cmd-icon-slot">' +
@@ -337,7 +352,10 @@
                 '<div class="cli-cmd-desc">' +
                 escapeHtml(item.desc || "") +
                 "</div>";
-            li.addEventListener("click", function (e) {
+
+            const handleAction = function (e) {
+                const selection = window.getSelection ? window.getSelection().toString() : "";
+                if (selection && selection.length > 0) return; // Zapobiega kopiowaniu całego wiersza przy zaznaczaniu myszą
                 const cmd = item.cmd || "";
                 if (e.altKey) {
                     e.preventDefault();
@@ -345,7 +363,16 @@
                     return;
                 }
                 copyToClipboard(cmd);
+            };
+
+            li.addEventListener("click", handleAction);
+            li.addEventListener("keydown", function (e) {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleAction(e);
+                }
             });
+
             li.setAttribute(
                 "title",
                 "Klik: kopiuj | Alt+klik: terminal (użytkownik) | Alt+Shift+klik: terminal (administrator)"
@@ -427,6 +454,7 @@
                     mainEl.textContent = parts.main;
                     subEl.textContent = parts.sub;
                     subEl.hidden = !parts.sub;
+                    subEl.style.display = parts.sub ? "" : "none";
                 } else {
                     title.textContent = item.name;
                 }
@@ -481,6 +509,9 @@
         const root = document.getElementById("grid-root");
         if (!root) return;
 
+        const currentActive = root.querySelector(".panel.active");
+        const currentActiveId = currentActive ? currentActive.dataset.panelId : null;
+
         root.innerHTML = "";
         root.classList.remove("grid-intro-ready");
         root.classList.add("grid-intro-pending");
@@ -504,12 +535,17 @@
             panel.dataset.panelId = item.id;
             panel.style.setProperty("--panel-stagger", String(index));
 
+            if (currentActiveId && item.id === currentActiveId) {
+                panel.classList.add("active");
+            }
+
             const panelSvg = getPanelSvg(item.id);
             panel.innerHTML =
                 '<div class="corner corner-tl"></div>' +
                 '<div class="corner corner-br"></div>' +
                 panelSvg +
                 '<div class="panel-content">' +
+                /* ZWINIĘTY PANEL (COLLAPSED) */
                 '<div class="collapsed-info">' +
                 '<div class="icon-box">' +
                 '<i class="fas fa-' +
@@ -519,7 +555,12 @@
                 '<span class="vertical-label">' +
                 escapeHtml(verticalTitle(item.name)) +
                 "</span>" +
-                "</div>" +
+                /* Przycisk na dole zwiniętego panelu */
+                '<button type="button" class="btn-collapsed-action" data-open-subpage title="Otwórz listę poleceń">' +
+                '<i data-lucide="terminal" width="36" height="36"></i>' +
+                '</button>' +
+                '</div>' +
+                /* ROZWINIĘTY PANEL (EXPANDED) */
                 '<div class="expanded-info">' +
                 '<span class="metadata">/ LOG_ID: ' +
                 item.id +
@@ -562,18 +603,19 @@
                 navigateToModule(item);
             };
 
+            // Kliknięcie w panel rozwija go (z wyjątkiem kliknięcia w jakikolwiek przycisk [data-open-subpage])
             panel.addEventListener("click", function (e) {
                 if (e.target.closest("[data-open-subpage]")) return;
                 activate();
             });
 
-            const btn = panel.querySelector("[data-open-subpage]");
-            if (btn) {
+            // Obsługa obu przycisków otwarcia (w widoku zwiniętym i rozwiniętym)
+            panel.querySelectorAll("[data-open-subpage]").forEach(function (btn) {
                 btn.addEventListener("click", function (e) {
                     e.stopPropagation();
                     openModule();
                 });
-            }
+            });
 
             root.appendChild(panel);
         });
@@ -608,7 +650,10 @@
             });
         }
 
-        document.getElementById("subpage-back").addEventListener("click", closeSubpage);
+        const backBtn = document.getElementById("subpage-back");
+        if (backBtn) {
+            backBtn.addEventListener("click", closeSubpage);
+        }
 
         window.addEventListener("hashchange", syncSubpageFromHash);
         window.addEventListener("popstate", syncSubpageFromHash);
@@ -623,36 +668,17 @@
             }
         });
 
+        // Ochrona przed przeciąganiem
+        document.querySelectorAll('[draggable="true"]').forEach((el) => {
+            el.removeAttribute("draggable");
+        });
+        document.addEventListener("dragstart", (e) => e.preventDefault());
+        document.addEventListener("drop", (e) => e.preventDefault());
+        document.addEventListener("dragover", (e) => e.preventDefault());
+
         buildPanels("");
         syncSubpageFromHash();
     }
 
     window.addEventListener("load", init);
 })();
-
-
-// Add these to your existing script section
-document.addEventListener("DOMContentLoaded", function () {
-    // Remove draggable attribute from all elements
-    document.querySelectorAll('[draggable="true"]').forEach((el) => {
-        el.removeAttribute("draggable");
-    });
-
-    // Prevent dragstart event
-    document.addEventListener("dragstart", function (e) {
-        e.preventDefault();
-        return false;
-    });
-
-    // Prevent drop event
-    document.addEventListener("drop", function (e) {
-        e.preventDefault();
-        return false;
-    });
-
-    // Prevent dragover event
-    document.addEventListener("dragover", function (e) {
-        e.preventDefault();
-        return false;
-    });
-});

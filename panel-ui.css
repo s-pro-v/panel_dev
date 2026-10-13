@@ -304,8 +304,9 @@ main {
     z-index: 10;
     padding: 2rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     pointer-events: none;
+    justify-content: center;
 }
 
 /* Collapsed State */

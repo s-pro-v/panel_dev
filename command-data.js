@@ -186,9 +186,9 @@ var commandModules = [
         name: "Safe Mode [Boot]",
         icon: "life-ring",
         commands: [
-            { id: 1001, cmd: "bcdedit /set {default} safeboot minimal", critical: false, desc: "Przy następnym rozruchu: tryb awaryjny bez sieci — tylko sterowniki podstawowe. Do usuwania problematycznych sterowników lub malware; wymaga restartu." },
-            { id: 1002, cmd: "bcdedit /set {default} safeboot network", critical: false, desc: "Tryb awaryjny z obsługą sieci (sterowniki karty i stos TCP/IP). Gdy potrzebujesz internetu do narzędzi w trybie awaryjnym." },
-            { id: 1003, cmd: "bcdedit /deletevalue {current} safeboot", critical: false, desc: "Usuwa flagę safeboot z bieżącego wpisu — po naprawie wracasz do normalnego startu. Uruchom z uprawnieniami administratora." }
+            { id: 16001, cmd: "bcdedit /set {default} safeboot minimal", critical: false, desc: "Przy następnym rozruchu: tryb awaryjny bez sieci — tylko sterowniki podstawowe. Do usuwania problematycznych sterowników lub malware; wymaga restartu." },
+            { id: 16002, cmd: "bcdedit /set {default} safeboot network", critical: false, desc: "Tryb awaryjny z obsługą sieci (sterowniki karty i stos TCP/IP). Gdy potrzebujesz internetu do narzędzi w trybie awaryjnym." },
+            { id: 16003, cmd: "bcdedit /deletevalue {current} safeboot", critical: false, desc: "Usuwa flagę safeboot z bieżącego wpisu — po naprawie wracasz do normalnego startu. Uruchom z uprawnieniami administratora." }
         ]
     },
     {
@@ -196,10 +196,10 @@ var commandModules = [
         name: "Reset DNS",
         icon: "sync-alt",
         commands: [
-            { cmd: "ipconfig /flushdns", desc: "Czyści lokalny cache DNS resolvera. Stosuj gdy strona działa na innym urządzeniu, ale nie w tej przeglądarce, albo po zmianie rekordów u dostawcy DNS." },
-            { cmd: "ipconfig /release", desc: "Zwalnia dzierżawę adresu IPv4 z interfejsów DHCP (Ethernet/Wi‑Fi). Po tym zwykle brak internetu do momentu renew / restartu routera." },
-            { cmd: "ipconfig /renew", desc: "Prosi serwer DHCP o nowy adres (często po release). Router może przydzielić ten sam lub inny IP w zależności od puli." },
-            { cmd: "netsh winsock reset", desc: "Przywraca domyślny katalog Winsock (warstwa między aplikacjami a TCP/IP). Pomaga po uszkodzeniu przez VPN, malware lub stare filtry LSP; zwykle wymaga restartu systemu." }
+            { id: 8001, cmd: "ipconfig /flushdns", critical: false, desc: "Czyści lokalny cache DNS resolvera. Stosuj gdy strona działa na innym urządzeniu, ale nie w tej przeglądarce, albo po zmianie rekordów u dostawcy DNS." },
+            { id: 8002, cmd: "ipconfig /release", critical: false, desc: "Zwalnia dzierżawę adresu IPv4 z interfejsów DHCP (Ethernet/Wi‑Fi). Po tym zwykle brak internetu do momentu renew / restartu routera." },
+            { id: 8003, cmd: "ipconfig /renew", critical: false, desc: "Prosi serwer DHCP o nowy adres (często po release). Router może przydzielić ten sam lub inny IP w zależności od puli." },
+            { id: 8004, cmd: "netsh winsock reset", critical: true, desc: "Przywraca domyślny katalog Winsock (warstwa między aplikacjami a TCP/IP). Pomaga po uszkodzeniu przez VPN, malware lub stare filtry LSP; zwykle wymaga restartu systemu." }
         ]
     },
     {

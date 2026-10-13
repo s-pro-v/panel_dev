@@ -4,6 +4,9 @@
 :root {
     color-scheme: dark;
 
+    /* --- SIZES & HUD GRID --- */
+    --grid-overlay-size: 40px;
+
     /* --- COLORS: PALETTE (dark) --- */
     --highlight-color: #f36c00;
     --success-color: #28a745;
@@ -72,6 +75,8 @@
 
 [data-theme="light"] {
     color-scheme: light;
+
+    --grid-overlay-size: 40px;
 
     --highlight-color: #f36c00;
     --success-color: #28a745;
